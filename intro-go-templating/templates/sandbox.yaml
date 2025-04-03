@@ -1,0 +1,16 @@
+﻿# I am a YAML comment
+test: {{ .Values.test }}
+  {{/* I am a comment not hidden */}}
+labels:
+  {{- /* I am a comment hidden */}}
+  app: {{ lower .Release.Name }}
+  chart: {{ replace "-" " " .Chart.Name | upper }}
+  {{- if eq .Values.environment "production" }}
+  environment: production
+  build: stable
+  public-ingress: true
+  {{- else }}
+  environment: development 
+  build: beta
+  public-ingress: false
+  {{- end}}
